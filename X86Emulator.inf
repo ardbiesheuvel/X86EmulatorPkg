@@ -1,0 +1,81 @@
+## @file
+#
+#  Copyright (c) 2017, Linaro, Ltd. <ard.biesheuvel@linaro.org>
+#
+#  This library is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Lesser General Public
+#  License as published by the Free Software Foundation; either
+#  version 2 of the License, or (at your option) any later version.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010019
+  BASE_NAME                      = X86EmulatorDxe
+  FILE_GUID                      = E6727A5E-CBCD-44C8-B37F-78BC3A0C16C8
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = X86EmulatorDxeEntryPoint
+
+#
+#  VALID_ARCHITECTURES           = AARCH64
+#
+
+[Sources]
+  X86Emulator.c
+  Glue.c
+  Qsort.c
+
+  qemu/fpu/softfloat.c
+  qemu/target-i386/translate.c
+  qemu/target-i386/helper.c
+  qemu/target-i386/op_helper.c
+  qemu/target-i386/cpuid.c
+  qemu/tcg/optimize.c
+  qemu/tcg/tcg.c
+  qemu/cpu-exec.c
+  qemu/cutils.c
+  qemu/host-utils.c
+  qemu/cache-utils.c
+  qemu/tcg-runtime.c
+  qemu/exec.c
+  qemu/translate-all.c
+  main.c
+
+[Sources.AARCH64]
+  AARCH64/X86Emulator.c
+  AARCH64/X86EmulatorThunk.S
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[Packages.AARCH64]
+  ArmPkg/ArmPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  CacheMaintenanceLib
+  CpuLib
+  DebugLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  PrintLib
+  TimerLib
+
+[LibraryClasses.AARCH64]
+  DefaultExceptionHandlerLib
+
+[Protocols]
+  gEfiCpuArchProtocolGuid                 ## CONSUMES
+  gEfiCpuIo2ProtocolGuid                  ## CONSUMES
+  gEdkiiPeCoffImageEmulatorProtocolGuid   ## PRODUCES
+
+[Depex]
+  gEfiCpuArchProtocolGuid AND gEfiCpuIo2ProtocolGuid
+
+[BuildOptions]
+  GCC:*_*_*_CC_FLAGS = -ffreestanding -mcmodel=small -U_FORTIFY_SOURCE
+  GCC:*_*_*_DLINK_FLAGS = -Wl,--defsym=_setjmp=SetJump -z common-page-size=0x1000
