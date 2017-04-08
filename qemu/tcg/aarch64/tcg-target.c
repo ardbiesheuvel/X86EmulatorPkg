@@ -10,7 +10,20 @@
  * See the COPYING file in the top-level directory for details.
  */
 
-#include "qemu/bitops.h"
+//#include "qemu/bitops.h"
+
+static inline uint32_t deposit32(uint32_t value, int start, int length,
+                                 uint32_t fieldval)
+{
+    uint32_t mask;
+    assert(start >= 0 && length > 0 && length <= 32 - start);
+    mask = (~0U >> (32 - length)) << start;
+    return (value & ~mask) | ((fieldval << start) & mask);
+}
+
+#define R_AARCH64_CONDBR19            280
+#define R_AARCH64_JUMP26              282
+#define R_AARCH64_CALL26              283
 
 #ifndef NDEBUG
 static const char * const tcg_target_reg_names[TCG_TARGET_NB_REGS] = {
@@ -54,6 +67,11 @@ static const int tcg_target_call_iarg_regs[8] = {
 static const int tcg_target_call_oarg_regs[1] = {
     TCG_REG_X0
 };
+
+static int tcg_target_get_call_iarg_regs_count(int flags)
+{
+    return sizeof(tcg_target_call_iarg_regs) / sizeof(tcg_target_call_iarg_regs[0]);
+}
 
 #define TCG_REG_TMP TCG_REG_X8
 
