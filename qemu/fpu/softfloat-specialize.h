@@ -114,7 +114,7 @@ const float128 float128_default_nan = make_float128(float128_default_nan_high,
 | should be simply `float_exception_flags |= flags;'.
 *----------------------------------------------------------------------------*/
 
-void float_raise( int8 flags STATUS_PARAM )
+void float_raise( int flags STATUS_PARAM )
 {
     STATUS(float_exception_flags) |= flags;
 }

@@ -209,7 +209,7 @@ void set_floatx80_rounding_precision(int val STATUS_PARAM);
 | Routine to raise any or all of the software IEC/IEEE floating-point
 | exception flags.
 *----------------------------------------------------------------------------*/
-void float_raise( int8 flags STATUS_PARAM);
+void float_raise( int flags STATUS_PARAM);
 
 /*----------------------------------------------------------------------------
 | Software IEC/IEEE integer-to-floating-point conversion routines.
