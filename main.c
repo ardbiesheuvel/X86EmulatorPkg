@@ -186,6 +186,11 @@ size_t strlen(const char *s)
     return (size_t)AsciiStrSize (s);
 }
 
+// clang cludge
+#ifdef strdup
+#undef strdup
+extern char *strdup(const char *s) asm ("__strdup");
+#endif
 char *strdup(const char *s)
 {
     char *result;
