@@ -77,5 +77,5 @@
   gEfiCpuArchProtocolGuid AND gEfiCpuIo2ProtocolGuid
 
 [BuildOptions]
-  GCC:*_*_*_CC_FLAGS = -ffreestanding -mcmodel=small -U_FORTIFY_SOURCE
+  GCC:*_*_*_CC_FLAGS = -ffreestanding -mcmodel=small -U_FORTIFY_SOURCE -Wno-unused-function
   GCC:*_*_*_DLINK_FLAGS = -Wl,--defsym=_setjmp=SetJump -z common-page-size=0x1000
