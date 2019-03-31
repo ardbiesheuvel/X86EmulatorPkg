@@ -51,14 +51,10 @@ BOOLEAN
 EFIAPI
 IsX86ImageSupported (
   IN  EDKII_PECOFF_IMAGE_EMULATOR_PROTOCOL    *This,
-  IN  UINT16                                  MachineType,
-  IN  UINT16                                  ImageType
+  IN  UINT16                                  ImageType,
+  IN  EFI_DEVICE_PATH_PROTOCOL                *DevicePath   OPTIONAL
   )
 {
-  if (MachineType != EFI_IMAGE_MACHINE_X64) {
-    return FALSE;
-  }
-
   if (ImageType != EFI_IMAGE_SUBSYSTEM_EFI_APPLICATION &&
       ImageType != EFI_IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER) {
     return FALSE;
@@ -70,9 +66,10 @@ STATIC
 EFI_STATUS
 EFIAPI
 RegisterX86Image (
-  IN  EDKII_PECOFF_IMAGE_EMULATOR_PROTOCOL    *This,
-  IN  EFI_PHYSICAL_ADDRESS                    ImageBase,
-  IN  UINT64                                  ImageSize
+  IN      EDKII_PECOFF_IMAGE_EMULATOR_PROTOCOL    *This,
+  IN      EFI_PHYSICAL_ADDRESS                    ImageBase,
+  IN      UINT64                                  ImageSize,
+  IN  OUT EFI_IMAGE_ENTRY_POINT                   *EntryPoint
   )
 {
   X86_IMAGE_RECORD    *Record;
@@ -119,7 +116,9 @@ UnregisterX86Image (
 STATIC EDKII_PECOFF_IMAGE_EMULATOR_PROTOCOL   mX86EmulatorProtocol = {
   IsX86ImageSupported,
   RegisterX86Image,
-  UnregisterX86Image
+  UnregisterX86Image,
+  EDKII_PECOFF_IMAGE_EMULATOR_VERSION,
+  EFI_IMAGE_MACHINE_X64
 };
 
 UINT8
