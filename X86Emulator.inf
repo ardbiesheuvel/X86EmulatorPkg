@@ -60,6 +60,7 @@
   CpuLib
   DebugLib
   MemoryAllocationLib
+  PeCoffLib
   UefiBootServicesTableLib
   UefiDriverEntryPoint
   PrintLib
