@@ -8,7 +8,7 @@ All prerequisites in the core code have been merged into the upstream
 Tianocore EDK2 repository as of commit 26d60374b87d.
 
 A prebuilt RELEASE binary of this driver is included in the edk2-non-osi
-repository at commit 77b5eefd92ae.
+repository at commit 596043ffb61d5f74.
 
 ## Quick Start
 
