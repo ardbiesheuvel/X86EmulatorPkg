@@ -2,7 +2,7 @@
 
 This code implements a DXE driver for EDK2/Tianocore that allows UEFI
 drivers built for x86_64 aka X64 aka amd64 to be executed on 64-bit
-ARM systems (aka AArch64)
+ARM systems aka AArch64 aka ARMv8 aka arm64.
 
 All prerequisites in the core code have been merged into the upstream
 Tianocore EDK2 repository as of commit 26d60374b87d.
