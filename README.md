@@ -14,16 +14,16 @@ repository at commit 596043ffb61d5f74.
 
 To quickly compile an OVMF version that contains the emulator, run
 
-	$ git clone https://github.com/ardbiesheuvel/edk2.git
+	$ git clone https://github.com/tianocore/edk2.git
 	$ cd edk2
-	$ git checkout origin/x86emu
 	$ git submodule add https://github.com/ardbiesheuvel/X86EmulatorPkg.git
+	$ git submodule update --init
 	$ echo "  X86EmulatorPkg/X86Emulator.inf" >> ArmVirtPkg/ArmVirtQemu.dsc
 	$ echo "  INF X86EmulatorPkg/X86Emulator.inf" >> ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
 	$ make -C BaseTools
 	$ . edksetup.sh
 	$ export GCC5_AARCH64_PREFIX=... (if you are on a non-aarch64 system)
-	$ build -a AARCH64 -t GCC5 -p ArmVirtPkg/ArmVirtQemu.dsc -b RELEASE
+	$ build -a AARCH64 -t GCC5 -p ArmVirtPkg/ArmVirtQemu.dsc -b RELEASE (-b DEBUG for debug build)
 
 You can then use QEMU to execute it:
 
