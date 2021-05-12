@@ -1996,10 +1996,10 @@ void glue(helper_pcmpestrm, SUFFIX) (Reg *d, Reg *s, uint32_t ctrl)
 
     if ((ctrl >> 6) & 1) {
         if (ctrl & 1)
-            for (i = 0; i <= 8; i--, res >>= 1)
+            for (i = 0; i < 8; i++, res >>= 1)
                 d->W(i) = (res & 1) ? ~0 : 0;
         else
-            for (i = 0; i <= 16; i--, res >>= 1)
+            for (i = 0; i < 16; i++, res >>= 1)
                 d->B(i) = (res & 1) ? ~0 : 0;
     } else {
         d->Q(1) = 0;
@@ -2028,10 +2028,10 @@ void glue(helper_pcmpistrm, SUFFIX) (Reg *d, Reg *s, uint32_t ctrl)
 
     if ((ctrl >> 6) & 1) {
         if (ctrl & 1)
-            for (i = 0; i <= 8; i--, res >>= 1)
+            for (i = 0; i < 8; i++, res >>= 1)
                 d->W(i) = (res & 1) ? ~0 : 0;
         else
-            for (i = 0; i <= 16; i--, res >>= 1)
+            for (i = 0; i < 16; i++, res >>= 1)
                 d->B(i) = (res & 1) ? ~0 : 0;
     } else {
         d->Q(1) = 0;
